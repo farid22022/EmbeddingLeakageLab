@@ -1,0 +1,6 @@
+12c7cd97fc7cd17ec0c07abce932639c790748c43393c5b0ee0e6cbe66e87b78  morris-etal-2023-vec2text.pdf
+a6e41502cb59768e2173c3673b99fe5f892522a76ea4274769fbfe5806c5629e  chen-lent-bjerva-2024-multilingual-inversion.pdf
+be24dae42527ff2253394546597a807c6d6c780177620d91b55e8dca7f523a4b  li-xu-song-2023-geia.pdf
+cc73b0e5e643ecccf53010c6f583b91c59ff26ad99471072f62625ac97053fcc  huang-etal-2024-transferable-inversion.pdf
+0cf7da65a8e529bd3b9bdbc505eb905e7bf7743d1d843e6b94f671fa4ccb264e  seputis-etal-2025-rethinking-privacy.pdf
+1bb229107dcf979dda70594628303da5466f6ef2a27f3d5aba9b3140cac3cfd8  tsai-etal-2026-sparse-defense.pdf

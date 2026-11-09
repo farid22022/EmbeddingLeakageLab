@@ -1,7 +1,7 @@
 # Literature review index
 
 **Review status:** Preliminary; Phase 0 remains open.
-**Last checked:** 2026-11-09.
+**Last checked:** 2026-11-10.
 **Verification basis:** Publisher proceedings pages or arXiv records; see
 `verification_log.md`.
 
@@ -17,6 +17,13 @@
 | Chen et al. (2024), [Against All Odds](https://arxiv.org/abs/2408.11749) | Studies cross-lingual and cross-script inversion across 20 languages, 8+ families, and 12 scripts; reports Indo-Aryan and script-related risk. | Strongly narrows novelty. Exact language list and Bangla inclusion require full-text/supplement verification. |
 | Chen et al. (2025), [ALGEN](https://aclanthology.org/2025.acl-long.1185/) | Few-shot cross-model alignment and generation; studies cross-domain/language transfer and defenses. | Current comparison point; prompts a low-resource/limited-auxiliary-data threat model review. |
 | Kabir et al. (2024), [BanglaEmbed](https://arxiv.org/abs/2411.15270) | Introduces lightweight Bangla sentence embedding models using cross-lingual distillation. | Candidate victim models; not itself an inversion/privacy study. Verify release, license, revision, architecture, and suitability. |
+| Seputis et al. (2025), [Rethinking the Privacy of Text Embeddings](https://arxiv.org/abs/2507.07700) | RecSys 2025 reproducibility study of Vec2Text; examines sensitivity, password-like inputs, noise, and quantization. | Useful replication and defense-control precedent. The paper reports sequence-length sensitivity; exact model/data details and Bangla coverage remain to be extracted. |
+| Tsai et al. (2026), [Concept-Aware Privacy Mechanisms for Defending Embedding Inversion Attacks](https://proceedings.iclr.cc/paper_files/paper/2026/hash/01025a4e79355bb37a10ba39605944b5-Abstract-Conference.html) | ICLR 2026 introduces SPARSE: concept-sensitive dimension masking with Mahalanobis elliptical noise. | Recent privacy–utility defense comparator; paper reports six datasets and three embedding models. Exact dataset/model/language coverage and guarantees need full-text review. |
+
+Downloaded copies of the six user-prioritized papers are in
+[`papers/`](papers/README.md). Source, license, and SHA-256 details are recorded
+there. The other papers already in this index remain linked to their publisher
+or preprint records.
 
 ## Provisional gap map
 
@@ -30,7 +37,7 @@ Do not present this as a confirmed gap until the primary-paper audit is complete
 
 ## Research conducted 2023–2026
 
-The verified starting set covers 2023–2025. A systematic search of 2026
-proceedings/preprints and source coverage in the closest multilingual studies
-remains outstanding. The date range in this table is not a claim of exhaustive
-coverage.
+The verified starting set now includes selected work from 2023–2026. A
+systematic search of 2026 proceedings/preprints and source coverage in the
+closest multilingual studies remains outstanding. The date range in this table
+is not a claim of exhaustive coverage.

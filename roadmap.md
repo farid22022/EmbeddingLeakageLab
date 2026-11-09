@@ -4,16 +4,16 @@
 
 Current Phase: 0
 Overall Status: PLANNING
-Last Updated: 2026-11-09
+Last Updated: 2026-11-10
 
 - **Completed phases:** None.
-- **Current active task:** Verify prior multilingual/cross-script language
-  coverage and finalize the threat model.
+- **Current active task:** Extract methods, language coverage, datasets, models,
+  and metrics from the 2024–2026 inversion and defense papers.
 - **Pending tasks:** Complete Gate 0 literature and protocol review; complete
   Phase 1 editable-install, CI, and hardware checks.
 - **Blocked tasks:** Hardware inventory query unavailable in the current
   environment.
-- **Phase completion:** Phase 0 = 44%; Phase 1 = 70%; overall = N/A until later
+- **Phase completion:** Phase 0 = 50%; Phase 1 = 70%; overall = N/A until later
   phase checklists are decomposed into measurable tasks.
 - **Latest successful experiment:** None.
 - **Latest failed experiment:** None.
@@ -26,7 +26,7 @@ Last Updated: 2026-11-09
 
 | Phase | Name | Status | Completion |
 |-------|------|--------|------------|
-| 0 | Literature Review | IN PROGRESS | 44% |
+| 0 | Literature Review | IN PROGRESS | 50% |
 | 1 | Repository Foundation | IN PROGRESS | 70% |
 | 2 | Dataset Engineering | TODO | 0% |
 | 3 | Embedding Engine | TODO | 0% |
@@ -49,6 +49,8 @@ model before attack implementation.
 - [x] Inspect repository and reference IntentGate organization.
 - [x] Verify core Vec2Text, GEIA, multilingual, transfer, and Bangla embedding
   paper metadata from primary records.
+- [x] Download and register the six user-prioritized core papers with source,
+  license, and checksum records.
 - [x] Create initial research questions and hypothesis document.
 - [x] Record preliminary novelty boundary and methodological risks.
 - [~] Review full methods and appendices, including language coverage.

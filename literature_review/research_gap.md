@@ -6,17 +6,20 @@ Primary literature has already introduced iterative reconstruction (Vec2Text),
 generative inversion (GEIA), multilingual/cross-lingual inversion and masking,
 transfer attacks without victim-model queries, and few-shot cross-model
 alignment/generation. A 2024 follow-up investigates 20 languages and 12 scripts
-and reports risk among Indo-Aryan languages. A Bangla sentence-embedding model
-family also exists.
+and reports risk among Indo-Aryan languages. A 2025 reproducibility study
+revisits Vec2Text, sequence-length sensitivity, Gaussian noise, and quantization;
+a 2026 ICLR paper introduces concept-aware SPARSE defense. Bangla sentence-
+embedding models also exist.
 
 ## Candidate gap, not a novelty claim
 
 A narrowly controlled evaluation of Bangla script, Romanized Bangla, and
 Bangla-English code-switching across explicitly specified models, attacker
-access assumptions, lengths, entity/attribute targets, and privacy-utility
-controls may add useful evidence. The exact overlap with prior language lists,
-datasets, and 2025–2026 papers has not yet been checked. The project must not
-claim to be the first multilingual or Indo-Aryan inversion study.
+access assumptions, lengths, entity/attribute targets, and current privacy-
+utility defenses may add useful evidence. The exact overlap with prior language
+lists, datasets, and 2025–2026 papers has not yet been checked. The project must
+not claim to be the first multilingual or Indo-Aryan inversion study, nor
+assume that developing another defense is novel.
 
 ## Methodological risks to resolve
 

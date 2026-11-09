@@ -19,16 +19,21 @@ GEIA (Li et al., 2023), multilingual and cross-lingual inversion (Chen et al.,
 2024), transfer attacks without victim-model queries (Huang et al., 2024), and
 few-shot cross-model alignment and generation (Chen et al., 2025) all predate
 this project. A 2024 study also examines typology, script, and language confusion
-across 20 languages, reporting elevated risk for Indo-Aryan languages.
+across 20 languages, reporting elevated risk for Indo-Aryan languages. Seputis
+et al. (2025) report a Vec2Text reproducibility study with sequence-length and
+quantization analyses. Tsai et al. (2026) introduce SPARSE, a concept-aware
+defense using learned sensitive-dimension masks and Mahalanobis noise.
 
 Therefore, “multilingual inversion” is not a defensible novelty claim. Whether
 Bangla itself, Romanized Bangla, and Bangla-English code-switching are covered
 in earlier experimental language lists has not yet been conclusively verified.
 The narrow possible gap is an evidence-backed, controlled study of these
 conditions, including script/transliteration and code-switching effects, model
-compatibility, entity/attribute leakage, and privacy-utility tradeoffs. This is
-a candidate gap only; it must be checked against complete paper appendices,
-related work through 2026, and available Bangla datasets/models before Gate 0.
+compatibility, entity/attribute leakage, and privacy-utility tradeoffs under
+current attack and defense baselines. This is a candidate gap only; it must be
+checked against complete paper appendices, language lists, related work through
+2026, and available Bangla datasets/models before Gate 0. A new defense is not
+assumed necessary or novel.
 
 ## 3. Provisional research questions and hypotheses
 
