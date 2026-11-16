@@ -1,43 +1,49 @@
 # Literature review index
 
-**Review status:** Preliminary; Phase 0 remains open.
-**Last checked:** 2026-11-10.
-**Verification basis:** Publisher proceedings pages or arXiv records; see
-`verification_log.md`.
+**Review status:** Structured primary-source review prepared; Gate 0 remains
+open pending human review and completion of detailed extraction fields.
+**Last checked:** 2026-11-16. **Coverage:** 2020–2026-11-16; not exhaustive.
+See [verification_log.md](verification_log.md) for search method and caveats.
 
-## Starting set
+## Core inversion and defense research
 
-| Work | Main contribution relevant here | Relevance and limitation |
+| Work | Verified contribution | Coverage and relevance |
 |---|---|---|
-| Morris et al. (2023), [Text Embeddings Reveal (Almost) As Much As Text](https://aclanthology.org/2023.emnlp-main.765/) | Iterative Vec2Text inversion; reports exact reconstruction in its studied setting and recovery of names from clinical notes. | Core attack baseline; reported performance is setting-specific, not a project expectation. |
-| Li et al. (2023), [Sentence Embedding Leaks More Information than You Expect (GEIA)](https://aclanthology.org/2023.findings-acl.881/) | Trains/fine-tunes a decoder to generate sequences from sentence embeddings. | Relevant generative attack; training/data/model requirements must be evaluated for feasibility. |
-| Chen et al. (2024), [Text Embedding Inversion Security for Multilingual Language Models](https://aclanthology.org/2024.acl-long.422/) | Defines multilingual and cross-lingual inversion; studies multilingual models and masking defense. | Establishes that multilingual inversion and defense comparisons are not novel by themselves. Language coverage must be checked in full text. |
-| Huang et al. (2024), [Transferable Embedding Inversion Attack](https://aclanthology.org/2024.acl-long.230/) | Uses a surrogate/transfer attack without direct victim-model access. | Threat-model baseline; do not conflate with query-access attacks. |
-| Zhuang et al. (2024), [Understanding and Mitigating the Threat of Vec2Text](https://arxiv.org/abs/2402.12784) | Studies pooling, bottleneck pretraining, noise, quantization, dimensions, and privacy/retrieval tradeoffs; proposes a ranking-preserving transform. | Direct defense precedent. The arXiv version and SIGIR-AP 2024 publication need full method extraction. |
-| Chen et al. (2024), [Against All Odds](https://arxiv.org/abs/2408.11749) | Studies cross-lingual and cross-script inversion across 20 languages, 8+ families, and 12 scripts; reports Indo-Aryan and script-related risk. | Strongly narrows novelty. Exact language list and Bangla inclusion require full-text/supplement verification. |
-| Chen et al. (2025), [ALGEN](https://aclanthology.org/2025.acl-long.1185/) | Few-shot cross-model alignment and generation; studies cross-domain/language transfer and defenses. | Current comparison point; prompts a low-resource/limited-auxiliary-data threat model review. |
-| Kabir et al. (2024), [BanglaEmbed](https://arxiv.org/abs/2411.15270) | Introduces lightweight Bangla sentence embedding models using cross-lingual distillation. | Candidate victim models; not itself an inversion/privacy study. Verify release, license, revision, architecture, and suitability. |
-| Seputis et al. (2025), [Rethinking the Privacy of Text Embeddings](https://arxiv.org/abs/2507.07700) | RecSys 2025 reproducibility study of Vec2Text; examines sensitivity, password-like inputs, noise, and quantization. | Useful replication and defense-control precedent. The paper reports sequence-length sensitivity; exact model/data details and Bangla coverage remain to be extracted. |
-| Tsai et al. (2026), [Concept-Aware Privacy Mechanisms for Defending Embedding Inversion Attacks](https://proceedings.iclr.cc/paper_files/paper/2026/hash/01025a4e79355bb37a10ba39605944b5-Abstract-Conference.html) | ICLR 2026 introduces SPARSE: concept-sensitive dimension masking with Mahalanobis elliptical noise. | Recent privacy–utility defense comparator; paper reports six datasets and three embedding models. Exact dataset/model/language coverage and guarantees need full-text review. |
+| Song & Raghunathan (2020), [Information Leakage in Embedding Models](https://doi.org/10.1145/3372297.3417277) | Word recovery, attribute inference, membership inference, and defenses from embeddings. | Foundational; distinguishes endpoints beyond sentence reconstruction. |
+| Morris et al. (2023), [Text Embeddings Reveal (Almost) As Much As Text](https://aclanthology.org/2023.emnlp-main.765/) | Vec2Text iteratively generates, queries, and corrects candidate text; ACL abstract reports 92% exact recovery for 32-token inputs in its evaluated setting. | English settings and clinical name recovery; result is not a Bangla expectation. |
+| Li et al. (2023), [GEIA](https://aclanthology.org/2023.findings-acl.881/) | Decoder trained to generate ordered text from frozen sentence embeddings; evaluates token and entity recovery. | PersonaChat/QNLI and English models; token F1 is not exact text match. |
+| Chen et al. (2024), [Text Embedding Inversion Security for Multilingual Language Models](https://aclanthology.org/2024.acl-long.422/) | Black-box multilingual and cross-lingual inversion plus masking defense. | Main audited languages English, French, German, Spanish; no Bangla/ROM/MIX condition found. |
+| Huang et al. (2024), [Transferable Embedding Inversion Attack](https://aclanthology.org/2024.acl-long.230/) | Surrogate transfer attack when the victim model cannot be queried or identified. | English benchmark and clinical MIMIC-III case; paired leaked data remains an access assumption. |
+| Zhuang et al. (2024), [Understanding and Mitigating the Threat of Vec2Text](https://doi.org/10.1145/3673791.3698414) | Studies retrieval risks and mitigation/utility effects. | Dense retrieval precedent; detailed comparison fields remain in the matrix as NOT REPORTED pending extraction. |
+| Chen et al. (2024), [Against All Odds](https://arxiv.org/abs/2408.11749) | Cross-script and cross-family inversion across 20 languages and 12 scripts, with language-confusion analysis. | Includes Hindi, Gujarati, Punjabi, Urdu, Sinhala, but not Bangla in its enumerated test languages; requires very substantial compute. |
+| Chen et al. (2025), [ALGEN](https://aclanthology.org/2025.acl-long.1185/) | Cross-model alignment and generation with low alignment-data budgets. | English, French, German, Spanish experiments; up to 1,000 alignment pairs; no Bangla/ROM/MIX condition found. |
+| Seputis et al. (2025), [Rethinking the Privacy of Text Embeddings](https://doi.org/10.1145/3705328.3748155) | Vec2Text reproducibility, length sensitivity, and noise/quantization analyses. | Useful replication and defense-control context; not Bangla-specific. |
+| Tsai et al. (2026), [SPARSE](https://proceedings.iclr.cc/paper_files/paper/2026/hash/01025a4e79355bb37a10ba39605944b5-Abstract-Conference.html) | Concept-sensitive dimension masking and Mahalanobis noise for privacy-utility tradeoffs. | ICLR 2026; reported tasks include STS12/FIQA and a MIMIC case; does not guarantee against membership inference. |
 
-Downloaded copies of the six user-prioritized papers are in
-[`papers/`](papers/README.md). Source, license, and SHA-256 details are recorded
-there. The other papers already in this index remain linked to their publisher
-or preprint records.
+## Bangla models and data resources
 
-## Provisional gap map
+| Resource | What it provides | What it does not establish |
+|---|---|---|
+| [BanglaEmbed](https://arxiv.org/abs/2411.15270) (Kabir et al., 2024) | Two lightweight Bangla sentence embedding models; authors state ACAI 2024 acceptance. | No embedding inversion evaluation; artifact license and exact model details remain to verify. |
+| [BanglaTLit](https://aclanthology.org/2024.findings-emnlp.859/) (Fahim et al., 2024) | 42.7K Romanized Bangla transliteration pairs and a 245.7K pretraining corpus. | Not a code-switch or embedding privacy evaluation. |
+| [BnSentMix](https://aclanthology.org/2025.loreslm-1.4/) (Alam et al., 2025) | 20K Bengali-English code-mixed sentiment samples from several sources. | Not an inversion benchmark; terms and exact script/split details need review. |
+| [BanglaMix](https://doi.org/10.1016/j.dib.2026.113317) (Afridi et al., 2026) | 12,576 social comments, raw/clean text, Bengali transliteration, token labels (BAN/ENG/ROM_BAN/OTHER/UNK). | Silver-standard social-media resource, not an embedding privacy evaluation; project reuse requires separate governance review. |
+| [BdNC](https://corpus.bangla.gov.bd/) | Official project site reports 3B+ raw words and at least 200K Romanized Bangla words. | Release/version, license, sampling and splits not verified in this review. |
 
-Prior research already covers embedding inversion, generative inversion,
-multilingual and cross-script inversion, transferable attacks, and multilingual
-defenses. The candidate contribution is a controlled, resource-aware study of
-Bangla script, Romanized Bangla, and Bangla-English code-switching, with
-language/script-specific leakage and utility metrics. Whether those exact
-conditions and comparable models/data are absent from prior work is unresolved.
-Do not present this as a confirmed gap until the primary-paper audit is complete.
+## Coverage and gap boundary
 
-## Research conducted 2023–2026
+The reviewed multilingual inversion papers establish that multilingual and
+Indo-Aryan risk have already been studied. The enumerated 2024 20-language set
+does not include Bengali; ACL 2024's audited language set and ALGEN's tested
+language set also omit Bangla. The 2025 BanglaTLit and 2026 BanglaMix resources
+cover transliteration or code-mix tagging, not embedding inversion. The
+structured search did not find a direct Bangla/ROM/MIX sentence-embedding
+inversion evaluation, but this is a bounded negative finding, not proof of
+global novelty. See [research_gap.md](research_gap.md).
 
-The verified starting set now includes selected work from 2023–2026. A
-systematic search of 2026 proceedings/preprints and source coverage in the
-closest multilingual studies remains outstanding. The date range in this table
-is not a claim of exhaustive coverage.
+## Local paper copies and bibliography
+
+The six user-prioritized PDFs remain in [`papers/`](papers/README.md), with
+source/license notes and SHA-256 checksums. Additional primary references and
+verified metadata are in [`../references.bib`](../references.bib). The full
+source-by-source verification table is in [verification_log.md](verification_log.md).

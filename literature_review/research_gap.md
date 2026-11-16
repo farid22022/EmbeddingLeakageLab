@@ -1,49 +1,93 @@
-# Research gap assessment (preliminary)
+# Research gap assessment (bounded review; human review requested)
 
-## Established coverage
+**Review cutoff:** 2026-11-16. **Status:** Evidence-informed but not exhaustive;
+no novelty claim is authorized by this document.
 
-Primary literature has already introduced iterative reconstruction (Vec2Text),
-generative inversion (GEIA), multilingual/cross-lingual inversion and masking,
-transfer attacks without victim-model queries, and few-shot cross-model
-alignment/generation. A 2024 follow-up investigates 20 languages and 12 scripts
-and reports risk among Indo-Aryan languages. A 2025 reproducibility study
-revisits Vec2Text, sequence-length sensitivity, Gaussian noise, and quantization;
-a 2026 ICLR paper introduces concept-aware SPARSE defense. Bangla sentence-
-embedding models also exist.
+## What is already established
 
-## Candidate gap, not a novelty claim
+- Song and Raghunathan (2020) evaluate word recovery, attribute inference,
+  membership inference, and defenses from embeddings.
+- GEIA (2023) generates ordered text from embeddings and evaluates token and
+  entity recovery; Vec2Text (2023) adds iterative correction with victim queries
+  and reports high exact reconstruction in its selected English settings.
+- ACL 2024 work studies multilingual/cross-lingual inversion and masking over
+  English, French, German, and Spanish. A distinct 2024 cross-script study
+  evaluates 20 languages, including Hindi, Gujarati, Punjabi, Urdu, and Sinhala
+  (Indo-Aryan family), but does not enumerate Bangla, Romanized Bangla, or
+  code-switched Bangla as test conditions.
+- Transferable inversion (2024) evaluates a no-victim-query setting with leaked
+  text/vector pairs and a clinical case study. ALGEN (2025) uses cross-model
+  alignment and generation, with English/French/German/Spanish experiments and
+  alignment budgets from one to 1,000 pairs. Reproducibility work revisits
+  Vec2Text; SPARSE (ICLR 2026) adds concept-aware privacy perturbation and
+  utility evaluation.
+- Bangla sentence embedding research exists (BanglaEmbed). Romanized Bangla
+  transliteration resources include BanglaTLit (42.7K paired samples, plus a
+  245.7K pretraining corpus). Code-mix resources include BnSentMix (20K
+  sentiment samples) and BanglaMix (12,576 comments with token tags and
+  transliteration). These are not embedding inversion privacy evaluations.
 
-A narrowly controlled evaluation of Bangla script, Romanized Bangla, and
-Bangla-English code-switching across explicitly specified models, attacker
-access assumptions, lengths, entity/attribute targets, and current privacy-
-utility defenses may add useful evidence. The exact overlap with prior language
-lists, datasets, and 2025–2026 papers has not yet been checked. The project must
-not claim to be the first multilingual or Indo-Aryan inversion study, nor
-assume that developing another defense is novel.
+## Candidate contribution status
 
-## Methodological risks to resolve
+**Partly supported, not proven novel:** a matched, resource-aware study of BN,
+ROM, EN, and MIX leakage from sentence embeddings, under disclosed model/query
+and auxiliary-pair budgets, measuring exact text, semantic propositions,
+fictional entities/attributes, and later privacy-utility effects.
 
-1. Translation, transliteration, and code-switching can alter meaning and
-   information content, making direct condition comparisons invalid.
-2. Bangla text normalization and tokenization can affect exact and character
-   metrics; preserve raw text and document script-specific processing.
-3. Sentence encoders differ in pooling, prompts, normalization, dimensions, and
-   training corpora; a model label alone does not define the embedding method.
-4. Attack papers use different threat models and data budgets. Results cannot
-   be compared without matched access and training controls.
-5. Embedding utility tasks may be language-imbalanced or invalid as a proxy for
-   legitimate use; select them based on actual use cases and data.
-6. Small hardware limits pilot scale and model choices; record out-of-memory
-   and compatibility failures as infrastructure outcomes.
-7. Entity and attribute labels in synthetic data may overstate recoverability
-   or produce artifacts; use controlled fictional records and state limits.
+The reviewed papers’ named-language tables establish non-inclusion in those
+specific evaluations. The structured search logged below did not identify a
+directly matching Bangla embedding-inversion evaluation through the cutoff.
+However, absence from a bounded search cannot prove no such work exists. The
+claim should remain “not found in the reviewed sources,” pending expert review
+and backward/forward citation searching.
 
-## Gate 0 work remaining
+## Coverage map
 
-- Inspect full primary texts and appendices, especially language lists in the
-  2024 multilingual and cross-script papers.
-- Search and verify relevant 2026 research through the Gate 0 cutoff.
-- Verify datasets, models, revisions, licenses, and Bangla/ROM/MIX coverage.
-- Select attacker capabilities, primary endpoints, sample construction,
-  comparisons, and a feasible pilot.
-- Review the resulting protocol for feasibility before Phase 5.
+| Question | Status in prior work | Project opportunity |
+|---|---|---|
+| Can sentence embeddings leak words/text? | Established across 2020–2025 methods. | Replicate a selected baseline before comparing scripts; no new general inversion claim. |
+| Multilingual and cross-script risk? | Directly explored, including several Indo-Aryan languages and 20-language study. | Test Bengali-specific behavior without claiming the first Indo-Aryan study. |
+| No-query transfer and few-shot access? | Transfer attack and ALGEN address distinct restricted-data scenarios. | Treat budgets and query access as explicit factors; compare only if implementation/resources permit. |
+| Romanized Bangla embedding inversion? | No direct study found in the reviewed sources; datasets exist for transliteration. | Controlled test with paired fictional content; model script support and spelling variation are key confounds. |
+| Bangla-English code-switch embedding inversion? | No direct study found in the reviewed sources; general code-mix datasets exist. | Token-level tags and aligned synthetic comparison; avoid natural social data until governance is reviewed. |
+| Entity/attribute leakage in Bangla? | Entity/attribute attacks exist in other language/domain settings; no direct Bangla evaluation found in reviewed set. | Test fictional structured slots and compare with simple label-prior baselines. |
+| Language-specific privacy-utility defense? | Several defenses exist; SPARSE tests concept-aware leakage/utility on its selected tasks. | Defer until a usable baseline and language-valid utility dataset are available. Do not invent a defense contribution. |
+
+## Obstacles and risk controls
+
+1. Translation, transliteration, and code-switching can alter semantics and
+   expose different clues. Use paired fictional records, independent bilingual
+   review, provenance, and template-level splits.
+2. Romanization is variable; exact string metrics may penalize equivalent
+   spellings. Keep raw exact match primary and add a separately defined
+   transliteration-aware analysis only as secondary.
+3. Mixed text needs token-level language/script tags; sentence-level language
+   detection is inadequate.
+4. Language support, tokenizer coverage, pooling, prompts, normalization, model
+   size, and license may invalidate a candidate encoder. Verify model artifacts
+   before selection.
+5. A 16-template test pilot is not powered for confirmatory significance. Use
+   it for implementation feasibility and variance estimates only.
+6. Published attacks often require large auxiliary corpora, pretrained
+   decoders, substantial compute, or API access. The 12GB/2GB-VRAM planning
+   hardware makes CPU-first small data suitable for a feasibility pilot, not a
+   reproduction of 40,000-GPU-hour multilingual work.
+7. Natural social-media data can include personal information despite public
+   availability. Prefer synthetic data; review terms, provenance, and ethics
+   before any natural-corpus use.
+
+## Realistic contribution claims if supported by later evidence
+
+- A reproducible paired synthetic benchmark protocol for four Bangla-related
+  language/script conditions.
+- A bounded measurement of reconstruction, fictional slot/entity recovery, and
+  sensitivity to declared auxiliary data and query access for one or a small
+  number of feasible models.
+- A documented failure/compatibility analysis describing where evaluation is
+  not possible with available language support or resources.
+- A later matched privacy-utility comparison using an existing defense, only
+  after language-appropriate utility data and defense feasibility are approved.
+
+These are candidate contributions, not completed outcomes. The next research
+task is expert review of the bounded search, then model/utility selection before
+any Phase 2 or attack implementation begins.
