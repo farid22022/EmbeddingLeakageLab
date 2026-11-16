@@ -1,102 +1,118 @@
 # EmbeddingLeakageLab Research and Technical Blueprint
 
-**Status:** Initial design; Phase 0 review remains open.
-**Last reviewed:** 2026-11-09
+**Status:** Phase 0 and Phase 1 are prepared for review but not gate-approved.
+**Last reviewed:** 2026-11-16.
 **Source of truth:** This document controls research scope and technical design.
 
 ## 1. Research purpose
 
-Measure what information an attacker can reconstruct or infer from text
-embeddings under explicitly defined access assumptions, with controlled
-comparisons among Bangla script (BN), Romanized Bangla (ROM), English (EN), and
-Bangla-English code-switching (MIX). The target population, datasets, models,
-attack assumptions, and claims remain subject to Phase 0 evidence review.
+Study what text information can be reconstructed or inferred from sentence
+embeddings under explicit attacker access assumptions. Candidate comparisons are
+Bengali script (BN), Romanized Bangla (ROM), English (EN), and Bangla-English
+code-switching (MIX), using aligned fictional synthetic content. The project
+has not run an inversion experiment.
 
 ## 2. Evidence status and novelty boundary
 
-Embedding inversion is established prior work. Vec2Text (Morris et al., 2023),
-GEIA (Li et al., 2023), multilingual and cross-lingual inversion (Chen et al.,
-2024), transfer attacks without victim-model queries (Huang et al., 2024), and
-few-shot cross-model alignment and generation (Chen et al., 2025) all predate
-this project. A 2024 study also examines typology, script, and language confusion
-across 20 languages, reporting elevated risk for Indo-Aryan languages. Seputis
-et al. (2025) report a Vec2Text reproducibility study with sequence-length and
-quantization analyses. Tsai et al. (2026) introduce SPARSE, a concept-aware
-defense using learned sensitive-dimension masks and Mahalanobis noise.
+Embedding leakage has been studied since Song and Raghunathan (2020), including
+partial word recovery, attribute inference, membership inference, and
+defenses. Later work established generative and iterative sentence inversion
+(GEIA and Vec2Text), multilingual and cross-script attacks, attacks without
+victim-model queries (transferable inversion), few-shot cross-model alignment
+(ALGEN), reproducibility analysis, and privacy-utility defenses (including
+SPARSE). These are established prior contributions, not project claims.
 
-Therefore, “multilingual inversion” is not a defensible novelty claim. Whether
-Bangla itself, Romanized Bangla, and Bangla-English code-switching are covered
-in earlier experimental language lists has not yet been conclusively verified.
-The narrow possible gap is an evidence-backed, controlled study of these
-conditions, including script/transliteration and code-switching effects, model
-compatibility, entity/attribute leakage, and privacy-utility tradeoffs under
-current attack and defense baselines. This is a candidate gap only; it must be
-checked against complete paper appendices, language lists, related work through
-2026, and available Bangla datasets/models before Gate 0. A new defense is not
-assumed necessary or novel.
+The 2024 multilingual ACL study tests English, French, German, and Spanish.
+The separate 2024 cross-script study enumerates 20 languages including Hindi,
+Gujarati, Punjabi, Urdu, and Sinhala, but not Bengali. It reports higher
+vulnerability for Indo-Aryan languages and used substantial compute. The
+reviewed ALGEN paper tests English, French, German, and Spanish. These findings
+verify non-inclusion in the named evaluations only; they do not prove no other
+prior study covers Bengali, Romanized Bangla, or Bangla-English code-switching.
+Romanized Bangla and code-mix datasets now exist, but their purpose is
+transliteration, language tagging, or sentiment—not embedding inversion.
 
-## 3. Provisional research questions and hypotheses
+Therefore the defensible candidate contribution is a controlled,
+resource-aware evaluation of Bengali-related scripts and code-switching,
+outcomes, and data/access budgets under reproducible, matched conditions. It is
+not “the first multilingual,” “the first Indo-Aryan,” or “the first Bengali
+privacy” work. A systematic search through 2026 found no directly matching
+Bangla embedding-inversion experiment within the sources logged here; this
+remains a bounded review result and requires human review before any novelty
+claim.
 
-See [research_questions.md](research_questions.md). RQs and hypotheses are
-provisional, not established results.
+## 3. Research questions and outcomes
 
-## 4. Scope and threat model to resolve
+See [research_questions.md](research_questions.md). The provisional RQs
+separate exact text, semantic propositions, fictional entity recovery,
+fictional attribute inference, and later privacy-utility analysis. Each is
+reported separately; no expected language ranking is assumed.
 
-The attack objective may be exact text reconstruction, semantic reconstruction,
-entity recovery, or sensitive attribute inference. These are distinct outcomes
-and must be reported separately. Threat-model variants must state whether an
-attacker has victim-model query access, auxiliary paired data, model identity,
-training data, or only leaked embeddings. Do not pool white-box, black-box,
-transfer, and retrieval attacks into a single “inversion” score.
+## 4. Threat model
 
-Phase 0 must decide primary and secondary threat models, attacker knowledge,
-defender interface, and a feasible pilot. The hardware supplied in the project
-prompt (i5-1135G7, 12 GB RAM, NVIDIA MX450 2 GB, Intel Iris Xe) is planning
-context, not independently verified inventory. CPU and small pilots are the
-default; no large checkpoints or expensive inference are part of this milestone.
+See [experimental_protocol.md](experimental_protocol.md) for independent axes
+covering victim-model queries, model identity, weights/gradients, auxiliary
+paired examples, data budgets, attack pretraining, objective, and defender.
+Initial future pilot candidate: known victim model, black-box weights,
+explicit query access only for synthetic attacker data/hypotheses, no real
+data, and separate budgets of 0/16/64 pairs. A no-query transfer threat model
+is distinct and out of the first pilot. White-box evaluation is out of initial
+scope.
 
-## 5. Comparison design
+## 5. Data and comparison design
 
-Four language/script conditions are planned: BN, ROM, EN, and MIX. Initial
-sentence-length bands are 5–10, 11–25, and 26–50 tokens and must be configurable.
-Comparisons require explicit alignment/provenance and must account for meaning
-changes from translation or transliteration. Preserve source text; store any
-normalized/transliterated version separately. Define how tokenization and
-language labels work for mixed text before counting lengths.
+Use 64 synthetic fictional records derived from 16 templates. Review four
+aligned renderings (BN, ROM, EN, MIX) for semantic equivalence and language/script
+labels. Preserve raw text and all transformed versions separately. Split by
+template before rendering; keep every paraphrase and condition from one
+template in one split. Use token-level tags for MIX, record whitespace and
+subword token counts, and report source lineage and exclusions. Natural corpora
+are candidates for later phases only after licensing, provenance, privacy, and
+label-quality review.
 
-## 6. Initial architecture
+## 6. Pilot feasibility
 
-The first milestone provides documentation, a small CLI, environment checks,
-seed/device helpers, and progress tracking. Later phases may introduce data
-loaders and manifests, embedding adapters, attack and defense interfaces,
-evaluation, experiment metadata, and reports. Do not create empty modules just
-to mimic the target tree. Heavy ML dependencies remain optional until a phase
-actually uses them.
+Owner-provided planning hardware is Intel i5-1135G7, 12 GB RAM, NVIDIA MX450
+2 GB, and Intel Iris Xe; these specifications are not independently verified.
+The current software runtime reports CPU and no CUDA. Future pilot defaults:
+one cached, approved Bangla-capable encoder, CPU-first, batch size 4 (reduce to
+1), max 128 subword tokens, one process, sequential conditions, and no large
+checkpoint downloads. Establish model footprint first; warn at 2 GB process
+RAM, stop at 5 GB, and record peak memory and timings. Exact model selection is
+open because model identity, license, compatibility, and cache availability
+must be checked before use. No attack or defense implementation is approved.
 
-## 7. Reproducibility contract
+## 7. Architecture and reproducibility
 
-Every future run must have a unique ID; immutable configuration; dataset
-version/checksum; model and tokenizer revisions; seed; hardware/software
-metadata; start/end timestamp; metrics; runtime/memory; warnings/errors; and
-status history. A completed run must never be silently overwritten. Small
-manifests/reports may be tracked; raw/private data, checkpoints, caches, and
-sensitive reconstructions stay out of Git.
+The current milestone is documentation, CLI, YAML loading, seed/device/logging
+helpers, and tests. Heavy ML dependencies remain optional. Later phases may add
+dataset manifests, embedding adapters, attack/defense interfaces, evaluation,
+immutable experiment records, and reports only after required gates.
+
+Each future experiment requires a unique immutable ID, frozen config, data
+version/checksum, model/tokenizer revisions, seed, hardware/software versions,
+timestamps, metrics, runtime/memory, errors/warnings, and status. Never
+overwrite completed output. Raw or sensitive text, checkpoints, caches, and
+reconstructions stay out of Git.
 
 ## 8. Ethics and claim discipline
 
-Use fictional synthetic personal information by default. Do not target real
-individuals or publish reconstructed identifying details. Respect dataset
-license and provenance. Distinguish prior findings, hypotheses, pilot
-observations, and confirmatory results. No result or novelty claim exists until
-produced by an auditable experiment.
+Use fictional data in development. Do not target real people or publish
+recovered identifying details. Respect dataset terms. Do not send sensitive
+text to external services. Label prior findings, hypotheses, and future results
+separately. Do not claim novelty, significance, or performance without
+verifiable evidence.
 
-## 9. Phase 0 open decisions
+## 9. Phase 0 and Phase 1 review decisions
 
-1. Verify the full language lists and threat assumptions in 2024 multilingual
-   work, including its 20-language follow-up.
-2. Search 2025–2026 primary sources for Bangla-specific inversion, entity
-   leakage, defenses, and code-switching studies; record the search protocol.
-3. Verify source coverage for BN, ROM, EN, MIX and comparability across datasets.
-4. Select a small number of embedding models based on architecture, pooling,
-   tokenizer, language support, license, and availability on this hardware.
-5. Finalize one feasible threat model and primary metric set before attack work.
+1. Confirm the bounded literature search and the proposed novelty language.
+2. Approve or revise the four provisional RQs and the synthetic data plan.
+3. Select a cached, appropriately licensed, Bangla-capable model only after its
+   resource footprint and representation recipe are verified.
+4. Decide whether the query-access synthetic pilot is acceptable before any
+   attack implementation phase begins.
+5. Resolve remaining Phase 1 evidence: Ruff and full dev-extra installation,
+   Python 3.11 runtime, CI execution, and owner-approved hardware inventory.
+
+Neither gate is complete in this revision; see `roadmap.md` and the two gate
+reports. No phase advances automatically.

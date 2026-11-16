@@ -1,35 +1,57 @@
 # Research questions and hypotheses
 
-These questions are provisional and must pass Gate 0. Their wording does not
-assert that a gap or effect has been established.
+**Status:** Provisional, evidence-informed questions for human review at Gate 0.
+No attack or defense results are claimed. Comparisons will use controlled
+synthetic data first; natural-corpus replications are out of the pilot scope.
 
-## Questions
+## Research questions
 
-- **RQ1:** How much textual information can be recovered from embeddings of
-  Bangla and multilingual text under defined attacker access assumptions?
-- **RQ2:** How does inversion performance differ among BN, ROM, EN, and MIX?
-- **RQ3:** How do model architecture, sentence length, language, and script
-  affect leakage?
-- **RQ4:** Can an attacker infer sensitive entities or attributes when exact
+- **RQ1 (text):** Under a declared black-box, query-access threat model, how do
+  exact and semantic reconstruction outcomes compare across Bengali script
+  (BN), Romanized Bangla (ROM), English (EN), and Bangla-English mixed text
+  (MIX) when the underlying fictional proposition is held constant?
+- **RQ2 (entities):** How often are predeclared fictional named entities
+  recovered, exactly or by entity type, in each condition when exact sentence
   reconstruction fails?
-- **RQ5:** How do selected protection methods affect leakage across conditions?
-- **RQ6:** What privacy–utility tradeoffs arise under the same controlled
-  evaluation protocol?
+- **RQ3 (attributes):** How accurately can an attacker infer the explicitly
+  encoded fictional attributes from embeddings, and how does this differ from
+  a label-prior baseline?
+- **RQ4 (utility, later phase):** How does a selected protection method change
+  a preregistered, language-appropriate embedding utility task alongside the
+  same leakage outcomes? This question is deferred until a defense and a
+  defensible utility benchmark are approved.
 
 ## Hypotheses
 
-- **H1:** Inversion performance differs by language and script condition.
-- **H2:** Sentence length and embedding architecture affect reconstruction.
-- **H3:** Semantic or entity information may remain recoverable when exact text
-  reconstruction fails.
-- **H4:** A protection method's effectiveness varies across language conditions.
-- **H5:** Protection changes downstream embedding utility, with tradeoffs that
-  may differ by condition.
+H1–H3 are exploratory directional comparisons only; no ordering among BN, ROM,
+EN, and MIX is assumed. Test direction and minimum effect of interest must be
+registered after a pilot confirms metric reliability. RQ4 has no hypothesis
+until a concrete defense and utility task are selected.
 
-## Interpretation constraints
+## Outcome definitions
 
-Treat all hypotheses as unconfirmed. Define exact reconstruction, semantic
-similarity, entity recovery, attribute inference, utility, and threat model
-separately. Translation and transliteration do not guarantee semantic
-equivalence. Do not claim statistical significance without a valid test and
-predeclared comparison.
+- **Exact reconstruction:** Unicode string exact match after only a documented
+  metric-specific canonicalization (NFC and line-ending normalization). Report
+  raw exact match too; do not remove punctuation, normalize spelling, or
+  transliterate for the primary exact score.
+- **Semantic reconstruction:** A candidate is semantically equivalent only
+  under blinded human annotation with a written rubric. Automatic multilingual
+  similarity (if later selected) is secondary and must not use the victim
+  embedding as its sole judge.
+- **Entity recovery:** Precision, recall, and F1 for fictional entity spans and
+  typed entity slots, with exact-span and normalized entity-value results
+  separate. Report the fraction of source examples with at least one correct
+  sensitive entity as a secondary exposure measure.
+- **Sensitive attribute inference:** Macro-F1 and balanced accuracy per
+  predeclared fictional attribute, compared with majority-class and label-prior
+  baselines. No real person's traits are included.
+- **Downstream utility:** A separate task measure, such as paired semantic
+  retrieval Recall@k, with task data, split, and model fixed before testing.
+  Utility is not inferred from cosine similarity alone.
+
+## Interpretation limits
+
+All findings will be specific to the selected model, pooling and normalization,
+dataset construction, auxiliary-data budget, and access scenario. The broad
+multilingual inversion and privacy-defense areas are established; this project
+will not claim priority based only on Bangla or low-resource status.

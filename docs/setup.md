@@ -19,10 +19,22 @@ ell --help
 ell doctor
 ```
 
-The current environment already has pytest, PyYAML, NumPy, Pandas, PyTorch and
-Transformers; Ruff is not installed. The machine's hardware query was not
-available in this execution context. The hardware figures in the blueprint are
-provided in the project brief and have not been independently checked.
+The local verification used Python 3.12.7 and a workspace-local virtual
+environment with system packages available. Editable installation succeeded
+using `--no-deps --no-build-isolation`; the regular development-extra install
+was not completed because package-index DNS/network access was unavailable.
+Ruff was therefore not installed or run. `pytest -q` passed all 10 tests.
+The installed `ell` version/status/roadmap/phase/doctor commands succeeded;
+doctor reports CPU and no CUDA in this Python runtime. Python 3.11 and remote
+Windows CI were not run. Hardware figures in the blueprint are owner-provided
+and physical inventory has not been independently verified. See
+[`phase1_verification_report.md`](phase1_verification_report.md) for exact
+commands and results.
+
+On this managed Windows environment, setuptools rejected the injected system
+temporary path during editable wheel creation. Retrying with `TEMP` and `TMP`
+pointing to a repository-local `.tmp/` directory succeeded. That directory is
+ignored by Git.
 
 ## CLI
 

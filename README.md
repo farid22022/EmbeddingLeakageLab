@@ -116,7 +116,7 @@ EmbeddingLeakageLab/
 │   ├── ethics.md                # Data and publication safeguards
 │   └── setup.md                 # Installation and CLI instructions
 ├── literature_review/
-│   ├── index.md                 # Starting literature review and gap map
+│   ├── index.md                 # Reviewed literature and bounded gap assessment
 │   ├── research_gap.md          # Preliminary gap assessment
 │   ├── comparison_matrix.csv    # Paper comparison records
 │   └── verification_log.md      # Metadata checks and open questions
@@ -229,5 +229,6 @@ primary paper records, including:
 - Chen et al. (2024), [Against All Odds: multilingual embedding inversion across typology and scripts](https://arxiv.org/abs/2408.11749).
 - Chen et al. (2025), [ALGEN: Few-shot Inversion Attacks](https://aclanthology.org/2025.acl-long.1185/).
 
-See [literature_review/index.md](literature_review/index.md) for the scope and
-verification status of these records.
+See [literature_review/index.md](literature_review/index.md) and
+[references.bib](references.bib) for the 2020–2026 review and primary-source
+records. The review is bounded rather than exhaustive; neither gate is complete.
